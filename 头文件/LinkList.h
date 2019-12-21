@@ -197,6 +197,26 @@ Status GetPosLNode(LinkList* L, int pos) {//获得单链表节点（由位置获取元素）
 	return N->data;
 }
 
+Status GetMaxLNode(LinkList* L) {//获得单链表最大节点
+	LNode* N;
+	N = L->next;
+	int max;
+	if (!N) {
+		return 0;
+	}
+	else {
+		max = N->data;
+		while (N->next) {
+			if(max < N->next->data){
+				max = N->next->data;
+			}
+			N = N->next;
+		}
+	}
+	//printf("%d ", L->next->data);
+	return max;
+}
+
 Status BubbleSortLinkList(LinkList* L) {//冒泡单链表排序
 	int k = LenLinkList(L);
 	int e1,e2;

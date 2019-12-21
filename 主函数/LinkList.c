@@ -48,6 +48,11 @@ int main()
 		AddLNode(&L, i);
 	}
 
+	printf("\n");
+	PrintLinkList(&L);
+	printf("最大元素:%d\n",GetMaxLNode(&L));
+	printf("\n");
+	
 	printf("Elem is :%d\n", GetPosLNode(&L, 2));
 	printf("开始排序:\n");
 	PrintLinkList(&L);
