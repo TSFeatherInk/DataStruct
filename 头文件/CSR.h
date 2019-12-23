@@ -31,17 +31,18 @@ typedef struct
 //ndata nrow ncol
 // data  row  col
 
-int row, col, num = 0;
+int row, col, num;
 Status **CreateMatrix()
 {
-    freopen("资源文件/Matrix.txt", "r", stdin);
+    //freopen("资源文件/Matrix.txt", "r", stdin);
+    num = 0;
     scanf("%d", &row);
     scanf("%d", &col);
 
-    ElemType **Matrix = (ElemType **)malloc(sizeof(ElemType *) * col);
+    ElemType **Matrix = (ElemType **)malloc(sizeof(ElemType *) * row);
     for (int i = 0; i < row; i++)
     {
-        Matrix[i] = (ElemType *)malloc(sizeof(ElemType) * row);
+        Matrix[i] = (ElemType *)malloc(sizeof(ElemType) * col);
     }
 
     for (int i = 0; i < row; i++)
@@ -55,11 +56,9 @@ Status **CreateMatrix()
             }
         }
     }
-    freopen("CON", "r", stdin);
+    //freopen("CON", "r", stdin);
     return Matrix;
 }
-
-
 
 TupNode *Turn_TupMatrix(ElemType **Matrix)
 {
@@ -107,8 +106,10 @@ CSRNode *Turn_CSR(ElemType **Matrix)
                     CSRMatrix[flagk].mark = k;
                     flag = 0;
                 }
-            }else if(flag){
-                CSRMatrix[flagk].mark = k+1;
+            }
+            else if (flag)
+            {
+                CSRMatrix[flagk].mark = k + 1;
                 flag = 0;
             }
         }
@@ -116,19 +117,81 @@ CSRNode *Turn_CSR(ElemType **Matrix)
     return CSRMatrix;
 }
 
+Status GetPosElem_CSR(CSRNode *CSRMatrix, int x, int y)
+{
+    if (x < CSRMatrix[0].mark)
+    {
+        for (int i = 0; i < CSRMatrix[x + 1].mark - CSRMatrix[x].mark; i++)
+        {
+            if (CSRMatrix[CSRMatrix[x].mark + i].col == y)
+            {
+                return CSRMatrix[CSRMatrix[x].mark + i].data;
+            }
+        }
+    }
+    else if (x == CSRMatrix[0].mark)
+    {
+        for (int i = 0; i < CSRMatrix[0].data - CSRMatrix[x].mark; i++)
+        {
+            if (CSRMatrix[CSRMatrix[x].mark + i].col == y)
+            {
+                return CSRMatrix[CSRMatrix[x].mark + i].data;
+            }
+        }
+    }
+    return 0;
+}
 
+Status** CSR_Multi(CSRNode *A, CSRNode *B)
+{
+    int n = 0;
+    int r = A[0].mark;
+    int c = B[0].col;
+    // ElemType C[r][c];
+    ElemType **C = (ElemType **)malloc(sizeof(ElemType *) * r);
+    for (int i = 0; i < r; i++)
+    {
+        C[i] = (ElemType *)malloc(sizeof(ElemType) * c);
+    }
+    ElemType NUM;
+    for(int i=1;i<=A[0].mark;i++){
+        for(int j=1;j<=B[0].col;j++){
+            NUM = 0;
+            for(int k=1;k<=A[0].col;k++){
+                // a[i][k] X b[k][j]
+                //printf("a[%d][%d] * b[%d][%d] == %d\n",i,k,k,j,GetPosElem_CSR(A,i,k)*GetPosElem_CSR(B,k,j));
+                NUM += GetPosElem_CSR(A,i,k)*GetPosElem_CSR(B,k,j);
+            }
+            //printf("NUM = %d\n",NUM);
+            C[i-1][j-1] = NUM;
+            if(NUM != 0){
+                n++;
+            }
+            //printf("c[%d][%d] == %d\n",i,j,NUM);
+        }
+    }
+    num = n;
+    row = r;
+    col = c;
+    return C;
+}
 
 Status PrintMatrix(ElemType **Matrix)
 {
-    printf("矩阵表示如下:\n");
+    if(col == 1){
+        printf("向量表示如下:\n");
+    }else{
+        printf("矩阵表示如下:\n");
+    }
     for (int i = 0; i < row; i++)
     {
         for (int j = 0; j < col; j++)
         {
-            printf("%d ", Matrix[i][j]);
+            printf("%3d ", Matrix[i][j]);
         }
         printf("\n");
     }
+    printf("\n");
     return 1;
 }
 
@@ -143,6 +206,7 @@ Status PrintTupleMatrix(TupNode *TupleMatrix)
     {
         printf("%4d %4d %4d\n", TupleMatrix[i].data, TupleMatrix[i].row, TupleMatrix[i].col);
     }
+    printf("\n");
     return 1;
 }
 
@@ -173,7 +237,7 @@ Status PrintCSRMatrix(CSRNode *CSRMatrix)
     {
         for (int i = 1; i <= CSRMatrix[0].mark; i++)
         {
-            
+
             if (i <= CSRMatrix[0].data)
             {
                 printf("%4d %4d %4d\n", CSRMatrix[i].data, CSRMatrix[i].col, CSRMatrix[i].mark);
@@ -184,5 +248,6 @@ Status PrintCSRMatrix(CSRNode *CSRMatrix)
             }
         }
     }
+    printf("\n");
     return 1;
 }
