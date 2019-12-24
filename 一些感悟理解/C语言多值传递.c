@@ -1,11 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-
 typedef struct{
 	int* a;
 	int* b;
 }Turn;
+
 Turn* value(){
 	int* a=(int*)malloc(sizeof(int)*3);
 	for(int i=0;i<3;i++){
