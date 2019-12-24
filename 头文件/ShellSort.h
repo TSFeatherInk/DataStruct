@@ -1,9 +1,8 @@
-#pragma once
 #include<stdio.h>
 #include"Usual.h"
 #include"SqList.h"
 
-Status GroupSort(Sqlist* L, int dk) {
+Status GroupSort(Sqlist* L, int dk) {//对 框定间隔 的 每组数据进行排序
 	for (int i = 0; i < dk; i++) {
 		for (int j = i+dk; j < L->length; j += dk) {
 			if (L->elem[j-dk] > L->elem[j]) {
@@ -16,7 +15,7 @@ Status GroupSort(Sqlist* L, int dk) {
 	return 1;
 }
 
-Status ShellSort(Sqlist* L, int t) {
+Status ShellSort(Sqlist* L, int t) {//对 任意输入的 dk 进行依次排序 完成希尔排序
 	int* dl = (int*)malloc(sizeof(int)*t);
 	for (int i = 0; i < t; i++) {
 		printf("输入第%d个dk值:", i + 1);
@@ -27,23 +26,3 @@ Status ShellSort(Sqlist* L, int t) {
 	}
 	return 1;
 }
-
-//#include<stdio.h>
-//#include"Usual.h"
-//#include"ShellSort.h"
-//
-//int main()
-//{
-//	Sqlist L;
-//	InitSqlist(&L);
-//	printf("输入待排序的数组:\n")
-//		for (int i = 0; i < 10; i++) {
-//			int a;
-//#pragma warning(suppress : 4996)
-//			scanf("%d", &a);
-//			AddElem(&L, a);
-//		}
-//	ShellSort(&L, 5);
-//	PrintSqlist(&L);
-//	return 0;
-//}

@@ -22,18 +22,3 @@ Status BS(Sqlist* L,ElemType x,int l,int r) {//¶þ·Ö²éÕÒ
 		BS(L, x, mid+1, r);
 	}
 }
-
-//#include<stdio.h>
-//#include"Usual.h"
-//#include"Binary.h"
-//
-//int main()
-//{
-//	Sqlist L;
-//	InitSqlist(&L);
-//	for (int i = 0; i < 10; i++) {
-//		AddElem(&L, i);
-//	}
-//	PrintSqlist(&L);
-//	BS(&L, 7, 0, 9);
-//}

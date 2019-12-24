@@ -14,7 +14,7 @@ FILE *fr;
 ElemType t[100] = {'\0'};
 int i = 0;
 
-Status CreateBitTree(BitTree* T) {
+Status CreateBitTree(BitTree* T) {//创建二叉树
 	ElemType e;
 	e = getc(fr);
 	getc(fr);
@@ -26,8 +26,8 @@ Status CreateBitTree(BitTree* T) {
 		T->data = e;
 		BitTree* L;
 		BitTree* R;
-		L = (BitTree*)malloc(sizeof(BitTree));
-		R = (BitTree*)malloc(sizeof(BitTree));
+		L = (BitTree*)malloc(sizeof(BitTree));//初始化左子树
+		R = (BitTree*)malloc(sizeof(BitTree));//初始化右子树
 		T->left = L;
 		T->right = R;
 		CreateBitTree(T->left);
@@ -35,7 +35,7 @@ Status CreateBitTree(BitTree* T) {
 	}
 }
 
-Status PrintPre(BitTree* T) {
+Status PrintPre(BitTree* T) {//先序遍历
 	if (T->data != '#') {
 		printf("%c ", T->data);
 		PrintPre(T->left);
@@ -45,7 +45,7 @@ Status PrintPre(BitTree* T) {
 	return 0;
 }
 
-Status PrintOrd(BitTree* T) {
+Status PrintOrd(BitTree* T) {//中序遍历
 	if (T->data != '#') {
 		PrintOrd(T->left);
 		printf("%c ", T->data);
@@ -55,7 +55,7 @@ Status PrintOrd(BitTree* T) {
 	return 0;
 }
 
-Status PrintRea(BitTree* T) {
+Status PrintRea(BitTree* T) {//后序遍历
 	if (T->data != '#') {
 		PrintRea(T->left);
 		PrintRea(T->right);

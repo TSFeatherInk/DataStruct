@@ -10,13 +10,13 @@ typedef struct{
 	int size;
 }Sqlist;
 
-Status InitSqlist(Sqlist *L){
+Status InitSqlist(Sqlist *L){//初始化线性表
 	L->elem = (ElemType*)malloc(sizeof(ElemType)*MAXSIZE);
 	L->length = 0;
 	L->size = MAXSIZE;
 }
 
-Status AddElem(Sqlist *L,ElemType x)
+Status AddElem(Sqlist *L,ElemType x)//对尾部添加一个新元素
 {
 	if(L->length<L->size)
 	{
@@ -26,7 +26,7 @@ Status AddElem(Sqlist *L,ElemType x)
 	}else return 0;
 }
 
-Status AddPosElem(Sqlist *L,int pos,ElemType x)
+Status AddPosElem(Sqlist *L,int pos,ElemType x)//在指定位置添加新元素
 {
 	if(pos>=1&&pos<=L->length)
 	{
@@ -45,7 +45,7 @@ Status AddPosElem(Sqlist *L,int pos,ElemType x)
 	else return 0;
 }
 
-Status DelElem(Sqlist *L)
+Status DelElem(Sqlist *L)//在尾部删除一个元素
 {
 	if(L->length>0)
 	{
@@ -55,7 +55,7 @@ Status DelElem(Sqlist *L)
 	}else return 0;
 }
 
-Status DelPosElem(Sqlist *L,int x)
+Status DelPosElem(Sqlist *L,int x)//删除指定位置的元素
 {
 	if(x>0&&x<=L->length)
 	{
@@ -68,7 +68,7 @@ Status DelPosElem(Sqlist *L,int x)
 	return 0;
 }
 
-Status SqlistEmpty(Sqlist *L)
+Status SqlistEmpty(Sqlist *L)//判断是否为空表
 {
 	if (L->length != 0) {
 		return 1;
@@ -77,12 +77,12 @@ Status SqlistEmpty(Sqlist *L)
 		return 0;
 	}
 }
-Status SqlistLen(Sqlist *L)
+Status SqlistLen(Sqlist *L)//得到线性表长度
 {
 	return L->length;
 }
 
-Status GetElemPos(Sqlist *L,ElemType x)
+Status GetElemPos(Sqlist *L,ElemType x)//得到某个值的元素的位置
 {
 	for(int i=0;i<L->length;i++)
 	{
@@ -91,7 +91,7 @@ Status GetElemPos(Sqlist *L,ElemType x)
 	}
 }
 
-Status *GetElemPos_mult(Sqlist *L,ElemType x)
+Status *GetElemPos_mult(Sqlist *L,ElemType x)//得到某个值的所有元素的位置
 {
 	int *a = (int*)malloc(sizeof(int)*(L->length+1));
 	a[0]=0;
@@ -105,7 +105,7 @@ Status *GetElemPos_mult(Sqlist *L,ElemType x)
 	}
 	return a;
 }
-Status *CheckElem(Sqlist *L,ElemType x)
+Status *CheckElem(Sqlist *L,ElemType x)//查找某值元素位置（所有）
 {
 	int *a = (int*)malloc(sizeof(int)*(L->length+1)); 
 	int c=0;
@@ -132,7 +132,7 @@ Status *CheckElem(Sqlist *L,ElemType x)
 	}
 }
 
-Status DestorySqlist(Sqlist *L)
+Status DestorySqlist(Sqlist *L)//销毁线性表
 {
 	if(L->elem)
 	{
@@ -143,8 +143,7 @@ Status DestorySqlist(Sqlist *L)
 	else return 0;
 }
 
-
-Status GetPosElem(Sqlist *L,int pos)
+Status GetPosElem(Sqlist *L,int pos)//得到某位置的元素
 {
 	if(pos>0&&pos<L->length)
 	{
@@ -152,7 +151,7 @@ Status GetPosElem(Sqlist *L,int pos)
 	}
 }
 
-Status PrintSqlist(Sqlist *L)
+Status PrintSqlist(Sqlist *L)//打印线性表
 {
 	if (L->length != 0)
 	{

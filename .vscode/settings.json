@@ -4,6 +4,9 @@
         "usual.h": "c",
         "binary.h": "c",
         "csr.h": "c",
-        "shortroad.h": "c"
+        "shortroad.h": "c",
+        "radix_sort_1.h": "c",
+        "insert_sort.h": "c",
+        "heap_sort.h": "c"
     }
 }

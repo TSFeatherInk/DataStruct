@@ -32,7 +32,7 @@ typedef struct
 // data  row  col
 
 int row, col, num;
-Status **CreateMatrix()
+Status **CreateMatrix()//读取二维数组创建矩阵
 {
     //freopen("资源文件/Matrix.txt", "r", stdin);
     num = 0;
@@ -60,7 +60,7 @@ Status **CreateMatrix()
     return Matrix;
 }
 
-TupNode *Turn_TupMatrix(ElemType **Matrix)
+TupNode *Turn_TupMatrix(ElemType **Matrix)//矩阵转三元组
 {
     TupNode *TupleMatrix = (TupNode *)malloc(sizeof(TupNode) * (num + 1));
     int k = 0;
@@ -71,7 +71,7 @@ TupNode *Turn_TupMatrix(ElemType **Matrix)
     {
         for (int j = 0; j < col; j++)
         {
-            if (Matrix[i][j])
+            if (Matrix[i][j])//当不为 0 时储存在三元组里
             {
                 k++;
                 TupleMatrix[k].data = Matrix[i][j];
@@ -83,7 +83,7 @@ TupNode *Turn_TupMatrix(ElemType **Matrix)
     return TupleMatrix;
 }
 
-CSRNode *Turn_CSR(ElemType **Matrix)
+CSRNode *Turn_CSR(ElemType **Matrix)//转CSR
 {
     CSRNode *CSRMatrix = (CSRNode *)malloc(sizeof(CSRNode) * (num + 1));
     int k = 0, flag = 0, flagk = 0;
@@ -96,7 +96,7 @@ CSRNode *Turn_CSR(ElemType **Matrix)
         flagk++;
         for (int j = 0; j < col; j++)
         {
-            if (Matrix[i][j])
+            if (Matrix[i][j])//不为 0 时储存在CSR中
             {
                 k++;
                 CSRMatrix[k].data = Matrix[i][j];
@@ -107,7 +107,7 @@ CSRNode *Turn_CSR(ElemType **Matrix)
                     flag = 0;
                 }
             }
-            else if (flag)
+            else if (flag)//判断是否是该行首个元素
             {
                 CSRMatrix[flagk].mark = k + 1;
                 flag = 0;
@@ -117,7 +117,7 @@ CSRNode *Turn_CSR(ElemType **Matrix)
     return CSRMatrix;
 }
 
-Status GetPosElem_CSR(CSRNode *CSRMatrix, int x, int y)
+Status GetPosElem_CSR(CSRNode *CSRMatrix, int x, int y)//从CSR矩阵中获得指定位置元素
 {
     if (x < CSRMatrix[0].mark)
     {
@@ -142,7 +142,7 @@ Status GetPosElem_CSR(CSRNode *CSRMatrix, int x, int y)
     return 0;
 }
 
-Status** CSR_Multi(CSRNode *A, CSRNode *B)
+Status** CSR_Multi(CSRNode *A, CSRNode *B)//CSR稀疏矩阵相乘
 {
     int n = 0;
     int r = A[0].mark;
@@ -176,7 +176,7 @@ Status** CSR_Multi(CSRNode *A, CSRNode *B)
     return C;
 }
 
-Status PrintMatrix(ElemType **Matrix)
+Status PrintMatrix(ElemType **Matrix)//打印矩阵
 {
     if(col == 1){
         printf("向量表示如下:\n");
@@ -195,7 +195,7 @@ Status PrintMatrix(ElemType **Matrix)
     return 1;
 }
 
-Status PrintTupleMatrix(TupNode *TupleMatrix)
+Status PrintTupleMatrix(TupNode *TupleMatrix)//打印三元组
 {
     printf("三元组表示如下:\n");
     char d[5] = "data";
@@ -210,7 +210,7 @@ Status PrintTupleMatrix(TupNode *TupleMatrix)
     return 1;
 }
 
-Status PrintCSRMatrix(CSRNode *CSRMatrix)
+Status PrintCSRMatrix(CSRNode *CSRMatrix)//打印CSR
 {
     printf("CSR表示如下:\n");
     char d[5] = "data";

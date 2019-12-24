@@ -15,7 +15,7 @@ void swap(int x, int y) {
 	return;
 }
 
-void CreateHeap() {
+void CreateHeap() {//读入堆
 	int x;
 	freopen("资源文件/Heap.txt", "r", stdin);
 	printf("正在从 Heap.txt 中读取初始堆:\n");
@@ -26,7 +26,7 @@ void CreateHeap() {
 	freopen("CON", "r", stdin);
 }
 
-void PrintHeap() {
+void PrintHeap() {//打印堆
 	printf("堆如下:\n");
 	for (int i = 1; i <= Heap[0]; i++)
 	{
@@ -35,7 +35,7 @@ void PrintHeap() {
 	printf("\n");
 }
 
-void ShifHeap(int pos) {
+void ShifHeap(int pos) {//调整堆
 	int t, mark = 0;
 	while (pos * 2 <= Heap[0] && mark == 0) {
 		if (Heap[pos] > Heap[pos * 2]) {
@@ -62,14 +62,14 @@ void ShifHeap(int pos) {
 	return;
 }
 
-void FinishHeap() {
+void FinishHeap() {//完成堆的创建
 	for (int i = Heap[0] / 2; i >= 1; i--) {
 		ShifHeap(i);
 	}
 	return;
 }
 
-Status DelHeapMin() {
+Status DelHeapMin() {//删除 最小堆 的 堆顶
 	int t;
 	t = Heap[1];
 	Heap[1] = Heap[Heap[0]];
@@ -78,7 +78,7 @@ Status DelHeapMin() {
 	return t;
 }
 
-void HeapSort() {
+void HeapSort() {//对堆排序
 	value[0] = Heap[0];
 	for (int i = 1; i <= value[0]; i++) {
 		value[i] = DelHeapMin();
@@ -89,18 +89,3 @@ void HeapSort() {
 		printf("%d ", value[i]);
 	}
 }
-
-//#include<stdio.h>
-//#include"HeapSort.h"
-//
-//int main()
-//{
-//	CreateHeap();
-//	PrintHeap();
-//	printf("\n");
-//	printf("锟皆堆碉拷锟斤拷:\n");
-//	FinishHeap();
-//	PrintHeap();
-//	HeapSort();
-//	return 0;
-//}
