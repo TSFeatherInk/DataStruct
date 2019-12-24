@@ -3,6 +3,7 @@
         "heapsort.h": "c",
         "usual.h": "c",
         "binary.h": "c",
-        "csr.h": "c"
+        "csr.h": "c",
+        "shortroad.h": "c"
     }
 }
